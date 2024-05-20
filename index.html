@@ -18,7 +18,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body onload="init()">
 
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
@@ -30,30 +30,32 @@
         <div class="card quiz-card">
             <img src="./img/quiz-card.jpg" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Frage</h5>
-                <div class="card mb-2">
-                    <div class="card-body">
+                <h5 id="question-text" class="card-title">Frage</h5>
+
+                <div class="card card-answer mb-2" onclick="answerQuestion('answer-1')">
+                    <div id="answer-1" class="card-body">
                         Antwort
                     </div>
                 </div>
-                <div class="card mb-2">
-                    <div class="card-body">
+                <div class="card card-answer mb-2" onclick="answerQuestion('answer-2')">
+                    <div id="answer-2" class="card-body">
                         Antwort
                     </div>
                 </div>
-                <div class="card mb-2">
-                    <div class="card-body">
+                <div class="card card-answer mb-2" onclick="answerQuestion('answer-3')">
+                    <div id="answer-3" class="card-body">
                         Antwort
                     </div>
                 </div>
-                <div class="card mb-2">
-                    <div class="card-body">
+                <div class="card card-answer mb-2" onclick="answerQuestion('answer-4')">
+                    <div id="answer-4" class="card-body">
                         Antwort
                     </div>
                 </div>
+
                 <div class="question-footer">
-                    <span><b>1 </b>von <b>5 </b>Fragen</span>
-                    <button type="button" class="btn btn-success">nächste Frage</button>
+                    <span><b id="question-number">1</b> von <b id="question-amount">7</b> Fragen</span>
+                    <button onclick="nextQuestion()" id="next-button" class="btn btn-primary" disabled>nächste Frage</button>
                 </div>
             </div>
         </div>

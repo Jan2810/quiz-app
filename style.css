@@ -10,8 +10,13 @@ body {
     align-items: center;
 }
 
-.quiz-card{
+.quiz-card {
     width: 30rem;
+}
+
+.card-answer:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.04);
 }
 
 .question-footer {
@@ -20,4 +25,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding-top: 12px;
+}
+
+.bg-success, .bg-danger {
+    color: white !important;
 }
