@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
     <script src="script.js"></script>
 
     <!-- bootstrap file -->
@@ -20,7 +21,7 @@
 
 <body onload="init()">
 
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar bg-body-tertiary" style="background-color:antiquewhite !important;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">QuizApp</a>
         </div>
@@ -28,8 +29,13 @@
 
     <div class="container">
         <div class="card quiz-card">
-            <img src="./img/quiz-card.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
+            <img src="./assets/img/quiz-card.jpg" class="card-img-top" alt="...">
+            
+            <div class="card-body" id="endscreen" style="display: none;">
+                Quiz beendet!
+            </div>
+
+            <div class="card-body" id="question-body">
                 <h5 id="question-text" class="card-title">Frage</h5>
 
                 <div class="card card-answer mb-2" onclick="answerQuestion('answer-1')">

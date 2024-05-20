@@ -66,7 +66,8 @@ function init() {
 
 function showQuestion() {
     if (currentQuestion >= questions.length) {
-        //show Endscreen
+        document.getElementById('endscreen').style = '';
+        document.getElementById('question-body').style = 'display: none';
     } else {
 
         let question = questions[currentQuestion];
