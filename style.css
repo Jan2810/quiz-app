@@ -17,17 +17,45 @@ body {
 
 .card-answer:hover {
     cursor: pointer;
-    background-color: rgba(0,0,0,0.04);
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
 .question-footer {
-    border-top: 1px solid rgba(0,0,0,0.4);
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 12px;
 }
 
-.bg-success, .bg-danger {
+.bg-success,
+.bg-danger {
     color: white !important;
+}
+
+#endscreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.endscreen-headline {
+    font-size: 38px;
+}
+
+.endscreen-trophy {
+    display: flex;
+    justify-content: flex-end;
+    right: 0;
+    top: 30%;
+    position: sticky;
+}
+
+#endscreen img {
+    height: 5em;
+}
+
+#endscreen button {
+    margin: 12px 0;
 }

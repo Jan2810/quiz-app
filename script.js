@@ -58,6 +58,10 @@ let questions = [
 ];
 
 let currentQuestion = 0;
+let rightAnswer = 0;
+let AUDIO_SUCCESS = new Audio('assets/audio/right-answer.mp3');
+let AUDIO_FAIL = new Audio('assets/audio/wrong-answer.mp3');
+let AUDIO_FINISH = new Audio('assets/audio/finish.mp3');
 
 function init() {
     document.getElementById('question-amount').innerHTML = questions.length;
@@ -65,42 +69,69 @@ function init() {
 }
 
 function showQuestion() {
-    if (currentQuestion >= questions.length) {
-        document.getElementById('endscreen').style = '';
-        document.getElementById('question-body').style = 'display: none';
+    if (gameIsOver()) {
+        showEndscreen();
     } else {
-
-        let question = questions[currentQuestion];
-
-        document.getElementById('question-number').innerHTML = currentQuestion + 1;
-        document.getElementById('question-text').innerHTML = question['question'];
-        document.getElementById('answer-1').innerHTML = question['answer_1'];
-        document.getElementById('answer-2').innerHTML = question['answer_2'];
-        document.getElementById('answer-3').innerHTML = question['answer_3'];
-        document.getElementById('answer-4').innerHTML = question['answer_4'];
+        updateProgressbar();
+        showNextQuestion();
     }
+}
 
+function gameIsOver() {
+    return currentQuestion >= questions.length;
+}
+
+function showEndscreen() {
+    document.getElementById('endscreen').style = '';
+    document.getElementById('question-body').style = 'display: none';
+    document.getElementById('quiz-card-img').src = 'assets/img/trophy-endscreen.png';
+    document.getElementById('endscreen-result').innerHTML = rightAnswer;
+    document.getElementById('endscreen-result-amount').innerHTML = questions.length;
+    AUDIO_FINISH.play();
+}
+
+function updateProgressbar() {
+    let percent = (currentQuestion + 1) / questions.length;
+    percent = Math.round(percent * 100);
+
+    document.getElementById('progress-bar').innerHTML = `${percent}%`;
+    document.getElementById('progress-bar').style.width = `${percent}%`;
+}
+
+function showNextQuestion() {
+    let question = questions[currentQuestion];
+    document.getElementById('question-number').innerHTML = currentQuestion + 1;
+    document.getElementById('question-text').innerHTML = question['question'];
+    document.getElementById('answer-1').innerHTML = question['answer_1'];
+    document.getElementById('answer-2').innerHTML = question['answer_2'];
+    document.getElementById('answer-3').innerHTML = question['answer_3'];
+    document.getElementById('answer-4').innerHTML = question['answer_4'];
 }
 
 function answerQuestion(selection) {
     let question = questions[currentQuestion];
     let selectedAnswerNumber = selection.slice(-1);
     let idOfRightAnswer = `answer-${question['right_answer']}`;
-
-    if (selectedAnswerNumber == question['right_answer']) {
+    if (rightAnswerSelected(selectedAnswerNumber, question)) {
         document.getElementById(selection).parentNode.classList.add('bg-success');
+        rightAnswer++;
+        AUDIO_SUCCESS.play();
     } else {
         document.getElementById(selection).parentNode.classList.add('bg-danger');
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
+        AUDIO_FAIL.play();
     }
     document.getElementById('next-button').disabled = false;
+}
+
+function rightAnswerSelected(selectedAnswerNumber, question) {
+    return selectedAnswerNumber == question['right_answer'];
 }
 
 function nextQuestion() {
     currentQuestion++;
     resetAnswerButtons();
     document.getElementById('next-button').disabled = true;
-
     showQuestion();
 }
 
@@ -108,4 +139,13 @@ function resetAnswerButtons() {
     for (i = 1; i < 5; i++) {
         document.getElementById(`answer-${i}`).parentNode.classList.remove('bg-danger', 'bg-success');
     }
+}
+
+function restartGame() {
+    document.getElementById('quiz-card-img').src = "./assets/img/quiz-card.jpg";
+    document.getElementById('endscreen').style = 'display: none;';
+    document.getElementById('question-body').style = '';
+    rightAnswer = 0;
+    currentQuestion = 0;
+    init();
 }
